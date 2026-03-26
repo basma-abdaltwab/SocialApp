@@ -1,0 +1,124 @@
+<nav class="bg-neutral-primary w-full z-20 top-0 start-0 border-b border-default">
+
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+    <a class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img src="/images/route.png" class="h-10 rounded" alt="Route Logo" />
+      <span class="self-center text-xl text-black font-bold whitespace-nowrap"
+        >Route Posts</span
+      >
+    </a>
+
+    <div class="flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1.5 transition hover:bg-slate-100 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
+      <button
+        type="button"
+        class="flex text-sm bg-neutral-primary rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary"
+        id="user-menu-button"
+        aria-expanded="false"
+        data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom"
+      >
+     
+        <span class="sr-only ">Open user menu</span>
+        <img class="w-10 h-10 rounded-full" src="/images/cb2129df93c585492f8bb559cb5e1651.jpg" alt="user photo" />
+<span class="hidden max-w-[140px] truncate text-sm font-semibold text-slate-800 md:block">basma abdaltwab</span>
+   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu text-slate-500" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+         
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        class="z-50 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44"
+        id="user-dropdown"
+      >
+        <div class="px-4 py-3 text-sm border-b border-default">
+          <span class="block text-heading font-medium">basma abdaltwab</span>
+        </div>
+        <ul class="p-2 text-sm text-body font-medium" aria-labelledby="user-menu-button">
+          <li>
+            <a
+              routerLink="/change"
+              routerLinkActive="bg-neutral-tertiary-medium"
+              class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+            >
+              <i class="fa-solid fa-gear"></i> Settings</a
+            >
+          </li>
+
+         
+           <li class="border-t border-gray-300 my-1.5">
+            <a 
+            (click)="logOut()"
+              class="  inline-flex items-center cursor-pointer w-full p-2 hover:bg-red-100 text-red-500 rounded mt-2"
+              >LogOut</a
+            >
+          </li>
+        
+        </ul>
+      </div>
+      <button
+        data-collapse-toggle="navbar-user"
+        type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+        aria-controls="navbar-user"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-6 h-6"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+            d="M5 7h14M5 12h14M5 17h14"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+      id="navbar-user"
+    >
+      <ul
+        class="font-medium flex flex-col p-4 md:p-1.5 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:bg-secondColor/60"
+      >
+        <li>
+          <a
+            routerLink="/feed"
+            routerLinkActive="bg-white text-mainColor"
+            class="block py-2 px-3 text-gray-600 rounded md:p-1"
+            aria-current="page"
+          >
+            <i class="fa-regular fa-house"></i> Feed</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/profile"
+            routerLinkActive="bg-white text-mainColor"
+            class="block py-2 px-3 text-gray-600 rounded md:p-1"
+            aria-current="page"
+          >
+            <i class="fa-regular fa-user"></i> Profile</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/notification"
+            routerLinkActive="bg-white text-mainColor"
+            class="block py-2 px-3 text-gray-600 rounded md:p-1"
+            aria-current="page"
+          >
+            <i class="fa-regular fa-comment"></i> Notification</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

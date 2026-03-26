@@ -1,0 +1,253 @@
+
+<div class="bg-gray-100 min-h-screen p-6 font-sans">
+  <div class="bg-white rounded-3xl shadow-lg overflow-hidden max-w-7xl mx-auto">
+    
+    <div class="bg-dark-soft h-64 relative">
+      <img [src]="imgeUrl" class="w-full h-70 object-cover" alt="">
+
+      <label for="fileCover" class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+        <i class="fa-solid fa-camera"></i>
+        Add cover
+      </label>
+
+      <input (change)="changeCover($event)" type="file"   id="fileCover" class="hidden" />
+
+
+    </div>
+
+    <div  (submit)="sumbitForrm($event)" class="px-10 py-8 mt-2 z-10 relative">
+      <div class="absolute -top-16 left-10 mt-20 ">
+
+              @if (imgeeUrl) { <img [src]="imgeeUrl" alt="Profile Picture" class="w-35 h-35 rounded-full border-4 border-dark-soft shadow-md object-cover" />
+                 }
+                 @else {
+                  <img [src]="imgUser" alt="Profile Picture" class="w-35 h-35 rounded-full border-4 border-dark-soft shadow-md object-cover" />
+                 }
+        <input [formControl]="contentt" (change)="uploadProfile($event)" class=" w-full rounded bg-amber-500 my-1" type="file" id="filePhoto" class="hidden" />
+        <label for="filePhoto"  class="flex cursor-pointer items-center gap-2 my-1 text-white bg-dark-soft px-2 py-1.5 rounded-lg transition-colors group">
+          Upload Profile
+        </label>
+      </div>
+
+      <div class="flex items-center justify-between ml-36">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">basma abdaltwab</h1>
+          <p class="text-gray-600">@</p>
+          <div class="mt-3 flex items-center gap-2 text-sm bg-blue-50 text-blue-700 px-3 py-1 rounded-full w-fit">
+            <i class="fa-solid fa-users"></i>
+            Route Posts member
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center w-40 shadow-sm">
+            <p class="text-xs text-gray-500 uppercase font-semibold">FOLLOWERS</p>
+            <p class="text-4xl font-extrabold text-gray-950 mt-1">0</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center w-40 shadow-sm">
+            <p class="text-xs text-gray-500 uppercase font-semibold">FOLLOWING</p>
+            <p class="text-4xl font-extrabold text-gray-950 mt-1">0</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-gray-100 text-center w-40 shadow-sm">
+            <p class="text-xs text-gray-500 uppercase font-semibold">BOOKMARKS</p>
+            <p class="text-4xl font-extrabold text-gray-950 mt-1">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-10 pb-10 flex gap-8 my-3">
+      <div class="flex-1 bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+        <h2 class="text-lg font-bold text-gray-900 mb-5">About</h2>
+        <div class="space-y-4 text-gray-700">
+          <div class="flex items-center gap-3">
+            <i class="fa-regular fa-envelope text-gray-500 w-5"></i>
+            <span>basmaabdaltwab25@gmail.com</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-check text-green-500 w-5"></i>
+            <span>Active on Route Posts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-2/5 space-y-4">
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs text-gray-500 uppercase font-semibold">MY POSTS</p>
+            <p class="text-4xl font-extrabold text-gray-950 mt-1">2</p>
+          </div>
+          <i class="fa-solid fa-newspaper text-gray-300 text-5xl"></i>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs text-gray-500 uppercase font-semibold">SAVED POSTS</p>
+            <p class="text-4xl font-extrabold text-gray-950 mt-1">0</p>
+          </div>
+          <i class="fa-regular fa-bookmark text-gray-300 text-5xl"></i>
+        </div>
+      </div>
+    </div>
+
+
+    @for (post of postsList; track post._id) {
+    <div class="bg-white rounded-[16px] my-3 shadow-sm border border-slate-200 p-4 font-sans">
+      <!-- user details  -->
+      <div class="flex items-start justify-between mb-3">
+        <div class="flex items-center gap-3">
+          <img
+            [src]="post.user.photo"
+            [alt]="post.user.name"
+            class="size-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50"
+          />
+
+          <div>
+            <span
+              class="text-[15px] font-bold text-slate-900 leading-tight hover:underline cursor-pointer"
+              >{{ post.user.name }}</span
+            >
+            <div class="flex items-center text-[13px] text-slate-500 mt-0.5 gap-1">
+              <span class="hover:underline cursor-pointer">@{{ post.user.name }}</span>
+              <span>&middot;</span>
+              <span class="hover:underline cursor-pointer">{{ post.createdAt }}</span>
+              <span>&middot;</span>
+
+              <div
+                class="p-0 w-fit items-center bg-neutral-secondary-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+              >
+                <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                  <option [selected]="post.privacy === 'public'" value="public">public</option>
+                  <option [selected]="post.privacy === 'following'" value="following">
+                    followers
+                  </option>
+                  <option [selected]="post.privacy === 'only me'" value="only_me">only me</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative group">
+          <button
+            id="dropdownMenuIconButton"
+            data-dropdown-toggle="dropdownDots"
+            class="text-heading bg-neutral-primary box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm p-2 focus:outline-none"
+            type="button"
+          >
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="3"
+                d="M12 6h.01M12 12h.01M12 18h.01"
+              />
+            </svg>
+          </button>
+
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownDots"
+            class="z-30 hidden group-hover:block absolute bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44"
+          >
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
+              <li>
+                <button
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                >
+                  Save Post
+                </button>
+
+                @if (post._id === userId) {
+                  <button
+                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                  >
+                    Edit post
+                  </button>
+
+                  <button
+                    class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                  >
+                    Delete post
+                  </button>
+                }
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- post content  -->
+      <div class="text-[15px] text-slate-900 mb-4">
+        @if (post.body) {
+          <p>{{ post.body }}</p>
+        }
+        @if (post.image) {
+          <img [src]="post.image" class="w-full max-h-90 object-cover rounded shadow mt-2" alt="" />
+        }
+      </div>
+
+      <!-- like share comments  counts & view details -->
+      <div class="flex items-center justify-between text-[13px] text-slate-500 mb-3 px-1">
+        <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
+          <div
+            class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-2xs"
+          >
+            <i class="fa-solid fa-thumbs-up"></i>
+          </div>
+          <span>{{ post.likesCount }}likes</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="cursor-pointer hover:underline"> {{ post.sharesCount }} shares</span>
+          <span class="cursor-pointer hover:underline">{{ post.commentsCount }}comments</span>
+          <button class="font-semibold cursor-pointer text-blue-600 hover:underline">
+            View details
+          </button>
+        </div>
+      </div>
+
+      <hr class="border-t border-slate-200 mb-1" />
+
+      <!-- buttons like - comment - share -->
+      <div class="flex items-center justify-between px-1 py-1">
+
+       
+        <button (click)="getLikes(post._id)"
+          
+          class = "flex-1 cursor-pointer flex items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors"
+     >
+          <i class="fa-solid fa-thumbs-up text-lg"></i>
+           like
+        </button>
+       
+
+        <button 
+          class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors"
+        >
+          <i class="fa-regular fa-message text-lg"></i>
+          Comment
+        </button>
+        <button
+          class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors"
+        >
+          <i class="fa-solid fa-share text-lg"></i>
+          Share
+        </button>
+      </div>
+
+      <hr class="border-t border-slate-200 mt-1 mb-4" />
+
+     
+      
+    </div>
+  }
+
+  </div>
+</div>
