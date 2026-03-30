@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -14,17 +15,16 @@ import { AuthService } from '../../core/auth/services/auth.service';
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly ngxSpinnerService = inject(NgxSpinnerService);
 
-  showPassword(element:HTMLInputElement): void{
-    
-    if (element.type === "password") {
-      element.type = 'text'
-    }
-    else {
+  showPassword(element: HTMLInputElement): void {
+    if (element.type === 'password') {
+      element.type = 'text';
+    } else {
       element.type = 'password';
     }
   }
-  
+
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
 
@@ -44,6 +44,7 @@ export class LoginComponent {
       this.loading = true;
 
       this.loginSubscribe.unsubscribe();
+      this.ngxSpinnerService.show()
 
       this.loginSubscribe = this.authService.signIn(this.loginForm.value).subscribe({
         next: (res) => {
@@ -55,6 +56,7 @@ export class LoginComponent {
             localStorage.setItem('socialUser', JSON.stringify(res.data.user));
 
             this.router.navigate(['/feed']);
+            this.ngxSpinnerService.hide();
           }
         },
         error: (err: HttpErrorResponse) => {

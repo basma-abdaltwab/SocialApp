@@ -25,8 +25,12 @@ export class CommentsService  {
       environment.baseUrl + `/posts/${postId}/comments`, data , this.header );
   }
 
-  deleteComment(postId:string , commentId:string): Observable<any>{
+  deleteComment(postId:string , commentId:string): Observable<any> {
     return this.httpClient.delete(
       environment.baseUrl + `/posts/${postId}/comments/${commentId}`, this.header );
+  }
+
+  getLikeComment(postId:string , commentId:string): Observable<any>{
+    return this.httpClient.put(environment.baseUrl + `/posts/${postId}/comments/${commentId}/like`, {}, this.header);
   }
 }

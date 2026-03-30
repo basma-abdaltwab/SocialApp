@@ -32,7 +32,7 @@ export class FeedContentComponent implements OnInit {
         console.log(res.data.posts);
         this.postsList = res.data.posts;
       },
-      error: (err) => {
+      error:(err) => {
         console.log(err);
       },
     });
@@ -73,7 +73,7 @@ export class FeedContentComponent implements OnInit {
     this.imgURL = '';
   }
 
-  submitForm(e: Event): void {
+  submitForm(e: Event , from:HTMLFormElement): void {
     e.preventDefault();
 
     console.log(this.content.value);
@@ -97,6 +97,8 @@ export class FeedContentComponent implements OnInit {
       next: (res) => {
         console.log(res);
         if (res.success) {
+          from.reset();
+          this.imgURL = "";
           this.getAllPostsData();
         }
       },
@@ -106,7 +108,7 @@ export class FeedContentComponent implements OnInit {
     });
   }
 
-  deletePosts(postId:string): void{
+  deletePosts(postId: string): void {
     this.postsService.deletePost(postId).subscribe({
       next: (res) => {
         console.log(res);
@@ -117,6 +119,8 @@ export class FeedContentComponent implements OnInit {
       error: (err) => {
         console.log(err);
       },
-    })
+    });
   }
+
+ 
 }

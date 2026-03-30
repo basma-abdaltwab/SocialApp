@@ -16,6 +16,7 @@ export class CommentPostComponent implements OnInit {
   content: FormControl = new FormControl('');
 
   @Input() postId: string = '';
+  
 
   commentsList: Comment[] = [];
   saveFile!: File;
@@ -52,13 +53,12 @@ export class CommentPostComponent implements OnInit {
     }
   }
 
-  CloseImg(e: Event): void{
+  CloseImg(e: Event): void {
     e.preventDefault();
-    this.imageURL = "";
-   
+    this.imageURL = '';
   }
 
-  submitCommentForm(e: Event): void {
+  submitCommentForm(e: Event , form:HTMLFormElement): void {
     e.preventDefault();
     console.log(this.content.value);
     console.log(this.saveFile);
@@ -77,6 +77,8 @@ export class CommentPostComponent implements OnInit {
       next: (res) => {
         console.log(res);
         if (res.success) {
+          form.reset();
+          this.imageURL = "";
           this.getCommentPost();
         }
       },
@@ -87,7 +89,7 @@ export class CommentPostComponent implements OnInit {
   }
 
   deleteCommentPost(commentId: string): void {
-    this.commentsService.deleteComment(this.postId, commentId).subscribe({
+    this.commentsService.deleteComment(this.postId , commentId).subscribe({
       next: (res) => {
         console.log(res);
         if (res.success) {
@@ -100,4 +102,19 @@ export class CommentPostComponent implements OnInit {
     });
   }
 
+  getLikeCommentPost(commentId:string): void {
+    this.commentsService.getLikeComment(this.postId, commentId).subscribe({
+      next:(res) => {
+        console.log(res);
+         if (res.success) {
+           this.getCommentPost();
+         }
+           
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  
 }

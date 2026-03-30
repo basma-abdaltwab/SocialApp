@@ -2,7 +2,8 @@
   <!-- Create Post  -->
 
   <form
-    (submit)="submitForm($event)"
+  #form
+    (submit)="submitForm($event , form)"
     class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col"
   >
     <div class="flex items-center gap-3 mb-3">
@@ -24,6 +25,8 @@
 
           <select
             [formControl]="privacy"
+            aria-label="Select privacy setting"
+              title="Select privacy setting"
             class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs"
           >
             <option value="public"><i class="fa-solid fa-earth-americas"></i> public</option>
@@ -59,6 +62,7 @@
   
 
     <div class="flex items-center justify-between my-2">
+      
       <input (change)="changeImg($event)" type="file" id="file" class="hidden" />
       
       <label
@@ -92,6 +96,7 @@
           <img
             [src]="post.user.photo"
             [alt]="post.user.name"
+            alt="User profile picture"
             class="size-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50"
           />
 
@@ -109,7 +114,10 @@
               <div
                 class="p-0 w-fit items-center bg-neutral-secondary-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
               >
-                <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                <select
+               title="Select privacy"
+                 class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+
                   <option [selected]="post.privacy === 'public'" value="public">public</option>
                   <option [selected]="post.privacy === 'following'" value="following">
                     followers
@@ -122,7 +130,8 @@
         </div>
 
         <div class="relative group">
-          <button
+          <button 
+          title="dropDown"
             id="dropdownMenuIconButton"
             data-dropdown-toggle="dropdownDots"
             class="text-heading bg-neutral-primary box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm p-2 focus:outline-none"
@@ -153,15 +162,16 @@
           >
             <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
               <li>
-                <button
+                <button 
                   class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
                 >
                   Save Post
                 </button>
 
                 @if (post.user._id) {
-                  <button
-                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                  <button [routerLink]="['/update-post',post._id]"
+
+                    class=" cursor-pointer inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
                   >
                     Edit post
                   </button>
@@ -230,7 +240,7 @@
           <i class="fa-regular fa-message text-lg"></i>
           Comment
         </button>
-        <button
+        <button [routerLink]="['/share-post' , post._id]"
           class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors"
         >
           <i class="fa-solid fa-share text-lg"></i>
